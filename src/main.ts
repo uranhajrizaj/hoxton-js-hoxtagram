@@ -1,55 +1,18 @@
-// [
-//     {
-//       "id": 1,
-//       "title": "Coder dog",
-//       "likes": 7,
-//       "image": "./assets/coder-dog.png",
-//       "comments": [
-//         {
-//           "id": 1,
-//           "content": "What a cute dog!",
-//           "imageId": 1
-//         },
-//         {
-//           "imageId": 1,
-//           "content": "Funny dog!!",
-//           "id": 4
-//         },
-//         {
-//           "imageId": 1,
-//           "content": "Hes a good boy!!",
-//           "id": 5
-//         }
-//       ]
-//     },
-//     {
-//       "id": 2,
-//       "title": "Coder cats",
-//       "likes": 5,
-//       "image": "./assets/coder-cat.jpeg",
-//       "comments": [
-//         {
-//           "id": 2,
-//           "content": "He has the paws for this!",
-//           "imageId": 2
-//         },
-//         {
-//           "id": 3,
-//           "content": "Someone's in trouble!",
-//           "imageId": 2
-//         }
-//       ]
-//     }
-//   ]
 
 type Image = {
   id: number;
   title: string;
   likes: number;
   image: string;
-  comments: Comment[];
+  comments: Comments[];
 };
 
+type Comments={
+    id: number;
+    content: string;
+    imageId: number;
+    
+}
 
 type State = {
   images: Image[];
@@ -99,16 +62,14 @@ function createImageCard() {
     let ulEl = document.createElement("ul");
     ulEl.classList.add("comments");
 
-    let liEl = document.createElement("li");
-    liEl.textContent = "Get rid of these comments";
+   for (let comment of image.comments) {
+    if(comment.imageId === image.id){
+        let liEl = document.createElement("li");
+        liEl.textContent = comment.content;
+        ulEl.append(liEl);
+    }}
 
-    let liEl2 = document.createElement("li");
-    liEl2.textContent = "And replace them with the real ones";
-
-    let liEl3 = document.createElement("li");
-    liEl3.textContent = "From the server";
-
-    ulEl.append(liEl, liEl2, liEl3);
+    
     imageCard.append(title, imageElement, deivEL, ulEl);
     sectionEl.append(imageCard);
   }
